@@ -33,7 +33,8 @@ function SignUp(){
   return(
     <Container>
       <div className='form-div'>
-        <h1>Cadastre-se!</h1>
+        <h1>Animation</h1>
+        <h2>Cadastre-se!</h2>
         <form onSubmit={handleSignUp}>
           <Input label={'Name'} signUp={signUp} setSignUp={setSignUp} type={'name'}/>
           <Input label={'E-mail'} signUp={signUp} setSignUp={setSignUp} type={'email'}/>
@@ -72,7 +73,13 @@ const Container = styled.div`
     justify-content: center;
     width: 35vw;
     height: 100vh;
+    padding: 50px 0px;
     h1 {
+      color: white;
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+    h2 {
       color: white;
       font-size: 30px;
     }
@@ -100,7 +107,6 @@ const Container = styled.div`
       justify-content: center;
       width: 300px;
       height: 200px;
-      background-color: #000000;
       opacity: 85%;
       border-radius: 10px;
       h1{
@@ -113,6 +119,19 @@ const Container = styled.div`
         color: white;
         font-size: 20px;
       }
+    }
+  }
+
+  @media (max-width: 1100px){
+    flex-direction: column;
+    .form-div{
+      width: 100vw;
+      background-image: url('https://images4.alphacoders.com/987/987919.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .image-div{
+      display: none;
     }
   }
 `
