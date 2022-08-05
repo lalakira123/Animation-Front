@@ -1,7 +1,8 @@
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
 
-function Input({label, state, setState, type}){
+function Input({label, state, setState, type, icon}){
   return(
     <>
       <CssTextField 
@@ -9,6 +10,13 @@ function Input({label, state, setState, type}){
         variant="outlined" 
         margin='normal'
         onChange={(e) => setState({...state, [type]: e.target.value})}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              {icon}
+            </InputAdornment>
+          ),
+        }}
         required
         />
     </>

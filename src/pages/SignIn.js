@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import EmailIcon from '@mui/icons-material/Email';
+import PasswordIcon from '@mui/icons-material/Password';
 
 import Input from '../components/Forms/Input';
 import InputPassword from '../components/Forms/InputPassword';
@@ -43,8 +45,20 @@ function SignIn(){
         <h1>Animation</h1>
         <h2>Assista agora!</h2>
         <form onSubmit={handleSignIn}>
-          <Input label={'E-mail'} state={signIn} setState={setSignIn} type={'email'}/>
-          <InputPassword label={'Password'} state={signIn} setState={setSignIn} type={'password'}/>
+          <Input 
+            label={'E-mail'} 
+            state={signIn} 
+            setState={setSignIn} 
+            type={'email'} 
+            icon={<EmailIcon color='primary'/>}
+            />
+          <InputPassword 
+            label={'Password'} 
+            state={signIn} 
+            setState={setSignIn} 
+            type={'password'}
+            icon={<PasswordIcon color='primary'/>}
+            />
           <ButtonForm text={'Entrar'} loading={loading}/>
         </form>
         <Link to='/signup'>

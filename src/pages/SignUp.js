@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import ImageIcon from '@mui/icons-material/Image';
+import LockIcon from '@mui/icons-material/Lock';
+import PasswordIcon from '@mui/icons-material/Password';
 
 import Input from '../components/Forms/Input';
 import InputPassword from '../components/Forms/InputPassword';
@@ -36,11 +41,41 @@ function SignUp(){
         <h1>Animation</h1>
         <h2>Cadastre-se!</h2>
         <form onSubmit={handleSignUp}>
-          <Input label={'Name'} state={signUp} setState={setSignUp} type={'name'}/>
-          <Input label={'E-mail'} state={signUp} setState={setSignUp} type={'email'}/>
-          <Input label={'Image URL'} state={signUp} setState={setSignUp} type={'imageUrl'}/>
-          <InputPassword label={'Password'} state={signUp} setState={setSignUp} type={'password'}/>
-          <InputPassword label={'Confirm Password'} state={signUp} setState={setSignUp} type={'confirmPassword'}/>
+          <Input 
+            label={'Name'} 
+            state={signUp} 
+            setState={setSignUp} 
+            type={'name'} 
+            icon={<PersonIcon color='primary'/>}
+            />
+          <Input 
+            label={'E-mail'} 
+            state={signUp} 
+            setState={setSignUp} 
+            type={'email'} 
+            icon={<EmailIcon color='primary'/>} 
+            />
+          <Input 
+            label={'Image URL'} 
+            state={signUp} 
+            setState={setSignUp} 
+            type={'imageUrl'}
+            icon={<ImageIcon color='primary'/>}
+            />
+          <InputPassword 
+            label={'Password'} 
+            state={signUp} 
+            setState={setSignUp} 
+            type={'password'}
+            icon={<PasswordIcon color='primary'/>}
+            />
+          <InputPassword 
+            label={'Confirm Password'} 
+            state={signUp} 
+            setState={setSignUp} 
+            type={'confirmPassword'}
+            icon={<LockIcon color='primary'/>}
+            />
           <ButtonForm text={'Cadastrar'} loading={loading}/>
         </form>
         <Link to='/'>

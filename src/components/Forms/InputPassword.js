@@ -8,7 +8,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/material/styles';
 
-function InputPassword({label, state, setState, type}){
+function InputPassword({label, state, setState, type, icon}){
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
@@ -39,6 +39,11 @@ function InputPassword({label, state, setState, type}){
         value={values.password}
         onChange={handleChange('password')}
         required
+        startAdornment={
+          <InputAdornment position="start">
+            {icon}
+          </InputAdornment>
+        }
         endAdornment={
           <InputAdornment position="end">
             <IconButton
