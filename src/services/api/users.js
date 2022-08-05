@@ -6,8 +6,13 @@ function signUp(userSignUp){
   return axios.post(`${url}/signup`, userSignUp);
 }
 
+function signIn(userSignIn){
+  return axios.post(`${url}/signin`, userSignIn);
+}
+
 const requestUserApi = {
-  signUp
+  signUp,
+  signIn
 }
 
 export default requestUserApi;

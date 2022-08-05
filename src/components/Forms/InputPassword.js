@@ -8,7 +8,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/material/styles';
 
-function InputPassword({label, signUp, setSignUp, type}){
+function InputPassword({label, state, setState, type}){
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
@@ -16,7 +16,7 @@ function InputPassword({label, signUp, setSignUp, type}){
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    setSignUp({ ...signUp, [type]: event.target.value});
+    setState({ ...state, [type]: event.target.value});
   };
 
   const handleClickShowPassword = () => {

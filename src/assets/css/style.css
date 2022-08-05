@@ -5,3 +5,16 @@
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1565C0;
+}
+
+a:visited {
+  color: #ffffff;
+}

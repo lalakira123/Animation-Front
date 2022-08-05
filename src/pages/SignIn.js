@@ -9,20 +9,20 @@ import Alert from '../components/Feedbacks/Alert';
 
 import requestUserApi from '../services/api/users';
 
-function SignUp(){
-  const [ signUp, setSignUp ] = useState({name:'', email:'', imageUrl:'', password:'', confirmPassword:''});
+function SignIn(){
+  const [ signIn, setSignIn ] = useState({email:'', password:''});
   const [ alert, setAlert ] = useState({message:'', isOpen:false, kind:'', update: 0});
   const [ loading, setLoading ] = useState(false);
 
   const navigate = useNavigate();
 
-  function handleSignUp(e){
+  function handleSignIn(e){
     e.preventDefault();
     setLoading(true);
-    const promise = requestUserApi.signUp(signUp);
+    const promise = requestUserApi.signIn(signIn);
     promise.then((response) => {
-      setAlert({message: response.data, isOpen:true, kind:'success', update: alert.update + 1});
-      setTimeout(() => navigate('/'), 2000);
+      setAlert({message: 'Login efetuado!', isOpen:true, kind:'success', update: alert.update + 1});
+      setTimeout(() => navigate('/series'), 1000);
     });
     promise.catch((e) => {
       setAlert({message: e.response.data, isOpen:true, kind:'error', update: alert.update + 1});
@@ -32,21 +32,6 @@ function SignUp(){
 
   return(
     <Container>
-      <div className='form-div'>
-        <h1>Animation</h1>
-        <h2>Cadastre-se!</h2>
-        <form onSubmit={handleSignUp}>
-          <Input label={'Name'} state={signUp} setState={setSignUp} type={'name'}/>
-          <Input label={'E-mail'} state={signUp} setState={setSignUp} type={'email'}/>
-          <Input label={'Image URL'} state={signUp} setState={setSignUp} type={'imageUrl'}/>
-          <InputPassword label={'Password'} state={signUp} setState={setSignUp} type={'password'}/>
-          <InputPassword label={'Confirm Password'} state={signUp} setState={setSignUp} type={'confirmPassword'}/>
-          <ButtonForm text={'Cadastrar'} loading={loading}/>
-        </form>
-        <Link to='/'>
-          <p>Já é cadastrado? Clique aqui</p>
-        </Link>
-      </div>
       <div className='image-div'>
         <div className='box'>
           <h1>Animation</h1>
@@ -54,12 +39,24 @@ function SignUp(){
           <p>preferido!</p>
         </div>
       </div>
+      <div className='form-div'>
+        <h1>Animation</h1>
+        <h2>Assista agora!</h2>
+        <form onSubmit={handleSignIn}>
+          <Input label={'E-mail'} state={signIn} setState={setSignIn} type={'email'}/>
+          <InputPassword label={'Password'} state={signIn} setState={setSignIn} type={'password'}/>
+          <ButtonForm text={'Entrar'} loading={loading}/>
+        </form>
+        <Link to='/signup'>
+          <p>Não possui uma conta? Clique aqui</p>
+        </Link>
+      </div>
       <Alert alert={alert}/>
     </Container>
   );
 }
 
-export default SignUp;
+export default SignIn;
 
 const Container = styled.div`
   display: flex;

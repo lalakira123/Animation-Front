@@ -1,14 +1,14 @@
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 
-function Input({label, signUp, setSignUp, type}){
+function Input({label, state, setState, type}){
   return(
     <>
       <CssTextField 
         fullWidth label={label} 
         variant="outlined" 
         margin='normal'
-        onChange={(e) => setSignUp({...signUp, [type]: e.target.value})}
+        onChange={(e) => setState({...state, [type]: e.target.value})}
         required
         />
     </>

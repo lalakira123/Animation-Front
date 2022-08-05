@@ -10,7 +10,7 @@ function ButtonForm({text, loading}){
       disabled={loading}
       >
       {
-        loading ? <CircularProgress color="inherit" /> : text
+        loading ? <CircularProgress color="primary" /> : text
       }
     </Button>
   );
