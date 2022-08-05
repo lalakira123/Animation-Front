@@ -107,7 +107,7 @@ const Container = styled.div`
     justify-content: center;
     width: 75vw;
     height: 100vh;
-    background-color: green;
+    background: radial-gradient(circle, rgba(88,69,154,1) 0%, rgba(0,17,37,1) 100%);
     background-image: url('https://images4.alphacoders.com/987/987919.jpg');
     background-repeat: no-repeat;
     background-size: cover;

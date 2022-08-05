@@ -23,7 +23,12 @@ function Alert({alert}){
   };
 
   return(
-    <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+    <Snackbar 
+      open={open} 
+      autoHideDuration={5000} 
+      onClose={handleClose} 
+      anchorOrigin={{vertical:'top',horizontal:'right'}}
+      >
       <AlertFeedback onClose={handleClose} severity={kind} sx={{ width: '100%' }}>
         {message}
       </AlertFeedback>

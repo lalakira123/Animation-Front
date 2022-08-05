@@ -37,6 +37,13 @@ function SignUp(){
 
   return(
     <Container>
+      <div className='image-div'>
+        <div className='box'>
+          <h1>Animation</h1>
+          <p>O seu site de animes</p>
+          <p>preferido!</p>
+        </div>
+      </div>
       <div className='form-div'>
         <h1>Animation</h1>
         <h2>Cadastre-se!</h2>
@@ -82,13 +89,6 @@ function SignUp(){
           <p>Já é cadastrado? Clique aqui</p>
         </Link>
       </div>
-      <div className='image-div'>
-        <div className='box'>
-          <h1>Animation</h1>
-          <p>O seu site de animes</p>
-          <p>preferido!</p>
-        </div>
-      </div>
       <Alert alert={alert}/>
     </Container>
   );
@@ -131,7 +131,7 @@ const Container = styled.div`
     justify-content: center;
     width: 75vw;
     height: 100vh;
-    background-color: green;
+    background: radial-gradient(circle, rgba(88,69,154,1) 0%, rgba(0,17,37,1) 100%);
     background-image: url('https://images4.alphacoders.com/987/987919.jpg');
     background-repeat: no-repeat;
     background-size: cover;
