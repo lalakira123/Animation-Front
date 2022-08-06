@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import EmailIcon from '@mui/icons-material/Email';
 import PasswordIcon from '@mui/icons-material/Password';
+
+import { UserContext } from '../contexts/UserContext';
 
 import Input from '../components/Forms/Input';
 import InputPassword from '../components/Forms/InputPassword';
@@ -17,13 +19,19 @@ function SignIn(){
   const [ loading, setLoading ] = useState(false);
 
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   function handleSignIn(e){
     e.preventDefault();
+    
     setLoading(true);
+
     const promise = requestUserApi.signIn(signIn);
     promise.then((response) => {
+      const { data } = response;
       setAlert({message: 'Login efetuado!', isOpen:true, kind:'success', update: alert.update + 1});
+      setUser(data);
+      localStorage.setItem("user", JSON.stringify(data));
       setTimeout(() => navigate('/series'), 1000);
     });
     promise.catch((e) => {
