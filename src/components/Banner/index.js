@@ -1,20 +1,42 @@
+import { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+
+import { UserContext } from '../../contexts/UserContext';
+
+import requestSerieApi from '../../services/api/series';
 
 import BasicButtons from './Button';
 
 export default function Banner() {
+  const [ banner, setBanner ] = useState({name:'', description:'', bannerUrl: ''});
+
+  const { user } = useContext(UserContext);
+  const config = {
+    headers: {Authorization: `Bearer ${user.token}`}
+  }
+
+  useEffect(() => {
+    const promise = requestSerieApi.getRandom(config);
+    promise.then((response) => {
+      const {data} = response;
+      setBanner(data[0]);
+    });
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }, []);
+
   return(
-    <Container>
-      <div className='text'>
+    <Container banner={banner.bannerUrl}>
+      <div className='text' >
         <div>
-          <h3>Jujutsu Kaisen</h3>
-          <p>Jujutsu Kaisen é mais um sucesso da consagrada Shonen Jump.
-          Falando de forma grosseira, a série é um "Naruto Dark". A formula de sucesso segue se renovando e com o sucesso de títulos como Shingeki no Kyojin e Tokyo Ghoul, todo ar sobrenatural e violência foram incorporadas.</p>
+          <h3>{banner.name}</h3>
+          <p>{banner.description}</p>
         <BasicButtons />
         </div>
       </div>
       <div className='image'>
-        <img src='https://ovicio.com.br/wp-content/uploads/2020/08/20200819-the-jujutsu-kaisen-anime-is-heading-to-crunchyroll-this-october.png' />
+        <img src={banner.bannerUrl} alt={banner.name}/>
       </div>
     </Container>
   );
@@ -36,12 +58,12 @@ const Container = styled.div`
     width: 45vw;
     height: 100%;
     h3 {
-      font-size: 30px;
+      font-size: 25px;
       font-weight: 500;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     p {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       font-weight: 500;
     }
   }
@@ -53,17 +75,19 @@ const Container = styled.div`
     img{
       height: 100%;
       width: 100%; 
+      border-radius: 5px;
     }
   }
 
   @media (max-width: 1000px){
+    height: 30vh;
     .image {
       display: none;
     }
     .text {
       width: 100%;
       padding-left: 20px;
-      background-image: url('https://ovicio.com.br/wp-content/uploads/2020/08/20200819-the-jujutsu-kaisen-anime-is-heading-to-crunchyroll-this-october.png');
+      background: ${(props) => `url(${props.banner})`};
       background-size: cover;
       div {
         width: 300px;
