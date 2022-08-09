@@ -48,7 +48,7 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {[{text:'Home', route:'/series'}, {text:'Favoritos', route:'/favorites'}].map((item, index) => (
+        {[{text:'Home', route:'/home'}, {text:'Favoritos', route:'/favorites'}].map((item, index) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton onClick={() => redirectTo(item.route)}>
               <ListItemIcon>

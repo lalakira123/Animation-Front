@@ -66,6 +66,12 @@ const Category = styled.div`
     font-weight: 500;
     margin-left: 40px;
   }
+
+  @media(max-width: 800px){
+    h3 {
+      margin-left: 20px;
+    }
+  }
 `
 
 const Container = styled.div`

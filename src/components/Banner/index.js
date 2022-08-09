@@ -49,6 +49,8 @@ const Container = styled.div`
   width: 100vw;
   height: 50vh;
   color: #FFFFFF;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(34, 113, 179, 0.3), rgba(0, 0, 0, 0.3));
+  background-size: cover;
   .text {
     display: flex;
     flex-direction: column;
@@ -88,7 +90,7 @@ const Container = styled.div`
     .text {
       width: 100%;
       padding-left: 20px;
-      background: ${(props) => `url(${props.banner})`};
+      background: ${(props) => `linear-gradient(rgba(0, 0, 0, 1), rgba(34, 113, 179, 0.4), rgba(0, 0, 0, 1)), url(${props.banner})`};
       background-size: cover;
       div {
         width: 300px;

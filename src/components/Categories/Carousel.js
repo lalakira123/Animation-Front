@@ -34,6 +34,9 @@ const Button = styled.button`
   :hover {
     cursor: pointer;
   }
+  @media (max-width: 800px){
+    display: none;
+  }
 `
 
 const CarouselContainer = styled.div`

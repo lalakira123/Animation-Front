@@ -15,9 +15,9 @@ function Header(){
   return(
     <HeaderContainer>
       <div className="left"> 
-        <h1 onClick={() => navigate('/series')}>Animation</h1>
+        <h1 onClick={() => navigate('/home')}>Animation</h1>
         <nav>
-          <p onClick={() => navigate('/series')}>Home</p>
+          <p onClick={() => navigate('/home')}>Home</p>
           <p onClick={() => navigate('/favorites')}>Favoritos</p>
         </nav>
       </div>
