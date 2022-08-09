@@ -32,7 +32,7 @@ function SignIn(){
       setAlert({message: 'Login efetuado!', isOpen:true, kind:'success', update: alert.update + 1});
       setUser(data);
       localStorage.setItem("user", JSON.stringify(data));
-      setTimeout(() => navigate('/series'), 1000);
+      setTimeout(() => navigate('/home'), 1000);
     });
     promise.catch((e) => {
       setAlert({message: e.response.data, isOpen:true, kind:'error', update: alert.update + 1});

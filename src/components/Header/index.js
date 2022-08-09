@@ -32,6 +32,12 @@ function Header(){
 export default Header;
 
 const HeaderContainer = styled.header`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: #000000;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;

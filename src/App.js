@@ -8,7 +8,8 @@ import PrivateRoute from './components/PrivateRoute/index.js';
 
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
-import Series from './pages/Series';
+import Home from './pages/Home';
+import Serie from './pages/Serie';
 
 function App() {
   return (
@@ -17,9 +18,14 @@ function App() {
         <Routes>
           <Route path='/' element={<SignIn />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/series' element={
+          <Route path='/home' element={
             <PrivateRoute>
-              <Series />
+              <Home />
+            </PrivateRoute>
+          } />
+          <Route path='/serie/:id' element={
+            <PrivateRoute>
+              <Serie />
             </PrivateRoute>
           } />
         </Routes>

@@ -25,14 +25,14 @@ export default function Banner() {
       console.log(e);
     })
   }, []);
-
+  
   return(
     <Container banner={banner.bannerUrl}>
       <div className='text' >
         <div>
           <h3>{banner.name}</h3>
           <p>{banner.description}</p>
-        <BasicButtons />
+        <BasicButtons serieId={banner.id}/>
         </div>
       </div>
       <div className='image'>
@@ -44,6 +44,7 @@ export default function Banner() {
 
 const Container = styled.div`
   display: flex;
+  margin-top: 80px;
   align-items: center;
   width: 100vw;
   height: 50vh;

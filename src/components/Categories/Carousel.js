@@ -37,6 +37,7 @@ const Button = styled.button`
 `
 
 const CarouselContainer = styled.div`
+  width: 100vw;
   display: flex;
   padding: 20px 0px;
   overflow-x: auto;
