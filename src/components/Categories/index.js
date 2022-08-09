@@ -1,39 +1,56 @@
 import styled from 'styled-components';
+import { useEffect, useContext, useState } from 'react';
 
 import Carousel from './Carousel';
 import CardSerie from './CardSerie';
+import { UserContext } from '../../contexts/UserContext';
+
+import requestCategoryApi from '../../services/api/categories';
 
 export default function Categories(){
+  const [ categories, setCategories ] = useState([]);
+
+  const { user } = useContext(UserContext);
+  const config = {
+    headers: {Authorization: `Bearer ${user.token}`}
+  }
+
+  useEffect(() => {
+    const promise = requestCategoryApi.getCategoriesSeries(config);
+    promise.then((response) => {
+      const { data } = response;
+      setCategories(data);
+    })
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }, []);
+
   return(
     <>
-    <Category>
-      <h3>Ação</h3>
-      <Container>
-        <Carousel>
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-        </Carousel>
-      </Container>
-    </Category>
-    <Category>
-      <h3>Comédia</h3>
-      <Container>
-        <Carousel>
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-          <CardSerie />
-        </Carousel>
-      </Container>
-    </Category>
+    {
+      categories.map((category) => {
+        const { name, categorySerie } = category;
+        return(
+          <Category>
+            <h3>{name}</h3>
+            <Container>
+              <Carousel>
+                {
+                  categorySerie.map((item) => {
+                    const serie = item.serie;
+                    const { id, imageUrl, bigImageUrl } = serie;
+                    return(
+                      <CardSerie id={id} imageUrl={imageUrl} bigImageUrl={bigImageUrl}/>
+                    );
+                  })
+                }
+              </Carousel>
+            </Container>
+          </Category>
+        );
+      })
+    }
     </>
   );
 }

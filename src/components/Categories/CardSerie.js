@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
-export default function CardSerie(){
+export default function CardSerie({id, imageUrl, bigImageUrl}){
   return(
     <Box>
-      <img className='desktop' src='https://c4.wallpaperflare.com/wallpaper/212/95/712/castlevania-alucard-castlevania-sypha-belnades-trevor-belmont-wallpaper-preview.jpg'/>
-      <img className='mobile' src='https://br.web.img2.acsta.net/pictures/21/05/10/23/27/0599462.jpg' /> 
+      <img className='desktop' src={bigImageUrl}/>
+      <img className='mobile' src={imageUrl}/> 
     </Box>
   )
 }
