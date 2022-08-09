@@ -19,3 +19,18 @@ a:hover {
 a:visited {
   color: #ffffff;
 }
+
+::-webkit-scrollbar{
+  width: 1px;
+  height: 0px;
+  overflow-x: none;
+}
+
+::-webkit-scrollbar-track{
+  background-color: #000000;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #ffffff;
+  border-radius: 25px;
+}
