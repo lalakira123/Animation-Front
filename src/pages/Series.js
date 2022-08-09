@@ -1,19 +1,15 @@
 import Header from './../components/Header';
 import Banner from '../components/Banner';
-
-import styled from 'styled-components';
+import Categories from '../components/Categories';
 
 function Series(){
   return(
     <>
       <Header />
       <Banner />
+      <Categories />
     </>
   );
 }
 
 export default Series;
-
-const Margin = styled.div`
-  padding: 0px 40px;
-`
