@@ -61,7 +61,7 @@ const Container = styled.div`
     width: 45vw;
     height: 100%;
     h3 {
-      font-size: 25px;
+      font-size: 30px;
       font-weight: 500;
       margin-bottom: 10px;
     }

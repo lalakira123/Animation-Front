@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,7 +10,9 @@ import VideoThumbnail from 'react-video-thumbnail';
 
 export default function SimpleAccordion({seasons, serieName}) {
   const unitSerieName = serieName?.replace(' ', '');
-
+ 
+  const navigate = useNavigate();
+  
   return (
     <div>
       {
@@ -31,7 +34,7 @@ export default function SimpleAccordion({seasons, serieName}) {
                     episode.map((item) => {
                       const { id, name, number } = item;
                       return(
-                        <Episode>
+                        <Episode onClick={() => navigate(`/video/${id}`)}>
                           <VideoThumbnail
                             videoUrl={`https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${unitSerieName}/S${serieNumber}.E${number}-${unitSerieName}.mp4`}
                             snapshotAtTime={500}
@@ -56,6 +59,7 @@ const Episode = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  cursor: pointer;
   img{
     width: 200px;
     height: 100px;

@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Serie from './pages/Serie';
+import Video from './pages/Video';
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
           <Route path='/serie/:idSerie' element={
             <PrivateRoute>
               <Serie />
+            </PrivateRoute>
+          } />
+          <Route path='/video/:idVideo' element={
+            <PrivateRoute>
+              <Video />
             </PrivateRoute>
           } />
         </Routes>

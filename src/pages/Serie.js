@@ -62,7 +62,7 @@ const SerieContainer = styled.div`
   width: 100vw;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(34, 113, 179, 0.3), rgba(0, 0, 0, 0.3));
   .serie{
-    width: 60vw;
+    width: 60%;
     display: flex;
     align-items: center ;
     img{
@@ -86,7 +86,7 @@ const SerieContainer = styled.div`
     }
   }
   .season{
-    width: 40vw;
+    width: 40%;
     padding-bottom: 20px;
   }
 
