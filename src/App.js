@@ -23,7 +23,7 @@ function App() {
               <Home />
             </PrivateRoute>
           } />
-          <Route path='/serie/:id' element={
+          <Route path='/serie/:idSerie' element={
             <PrivateRoute>
               <Serie />
             </PrivateRoute>

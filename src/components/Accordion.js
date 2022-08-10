@@ -5,35 +5,49 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from 'styled-components';
+import VideoThumbnail from 'react-video-thumbnail';
 
-export default function SimpleAccordion() {
+export default function SimpleAccordion({seasons, serieName}) {
+  const unitSerieName = serieName?.replace(' ', '');
+
   return (
     <div>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Temporada 1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            <Episode>
-              <img src='https://beta.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/f7adcedd1d7c53ae18d851003a3cfae4.jpeg'/>
-              <p>1. a a a a a a aa a a a a a aa a a a aa a a a a a a aa a a a a a a</p>
-            </Episode>
-            <Episode>
-              <img src='https://beta.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/f7adcedd1d7c53ae18d851003a3cfae4.jpeg'/>
-              <p>1. a a a a a a aa a a a a a aa a a a aa a a a a a a aa a a a a a a</p>
-            </Episode>
-            <Episode>
-              <img src='https://beta.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/f7adcedd1d7c53ae18d851003a3cfae4.jpeg'/>
-              <p>1. a a a a a a aa a a a a a aa a a a aa a a a a a a aa a a a a a a</p>
-            </Episode>
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      {
+        seasons.map((season) => {
+          const { number, episode } = season;
+          const serieNumber = number;
+          return(
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+              <Typography><b>Temporada {number}</b></Typography>
+              </AccordionSummary>
+                <AccordionDetails>
+                <Typography>
+                  {
+                    episode.map((item) => {
+                      const { id, name, number } = item;
+                      return(
+                        <Episode>
+                          <VideoThumbnail
+                            videoUrl={`https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${unitSerieName}/S${serieNumber}.E${number}-${unitSerieName}.mp4`}
+                            snapshotAtTime={500}
+                            width={3000}
+                          />
+                          <p>{number}. {name}</p>
+                        </Episode>
+                      )
+                    })
+                  }
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          )
+        })
+      }
     </div>
   );
 }
