@@ -86,6 +86,10 @@ const FavoriteContainer = styled.div`
       transform: scale(1.2);
       z-index: 2;
     }
+    p{
+      font-size: 20px;
+      font-weight: 400;
+    }
   }
 
   @media (max-width: 1000px){
