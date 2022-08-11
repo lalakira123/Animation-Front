@@ -86,7 +86,7 @@ export default function Video(){
               type="video/mp4" 
             />
           </video>
-          <p>{episode.views} Visualizações</p>
+          <p className='visualization'>{episode.views} Visualizações</p>
         </div>
         <div className='comments'>
 
@@ -102,7 +102,7 @@ export default function Video(){
 
 const VideoContainer = styled.div`
   display: flex;
-  padding: 120px 100px 40px 100px;
+  padding: 120px 100px 100px 100px;
   color: #ffffff;
   width: 100vw;
   height: 100vh;
@@ -116,7 +116,7 @@ const VideoContainer = styled.div`
     justify-content: space-between;
     width: 55%;
     height: 100%;
-    padding: 0px 35px 10px 35px;
+    padding: 0px 35px 0px 35px;
     .title{
       h3{
         font-size: 30px;
@@ -131,6 +131,7 @@ const VideoContainer = styled.div`
       justify-content: space-between;
       align-items: center;
       margin-top: 20px;
+      margin-bottom: 10px;
       .next{
         cursor: pointer;
         display: flex;
@@ -141,6 +142,9 @@ const VideoContainer = styled.div`
         display: flex;
         align-items: center;
       }
+    }
+    video{
+      margin-bottom: 10px;
     }
   }
   .comments{
@@ -154,6 +158,7 @@ const VideoContainer = styled.div`
     flex-direction: column;
     padding: 90px 10px;
     align-items: center;
+    height: 1000px;
     .video{
       width: 100%;
       video{
@@ -162,8 +167,9 @@ const VideoContainer = styled.div`
       }
     }
     .comments{
-      width: 90%;
+      width: 80%;
       height: 100%;
+      margin-top: 40px;
     }
   }
 `
