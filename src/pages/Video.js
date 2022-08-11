@@ -39,7 +39,7 @@ export default function Video(){
             <h3>{episode.season.serie.name}</h3>
             <p>Temporada {episode.season?.number}: Episódio {episode.number} - {episode.name}</p>
           </div>
-          <video width="660px" height="390px" controls controlsList="nodownload">
+          <video width="100%" height="100%" controls controlsList="nodownload">
             <source 
               src={
                 `https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${episode.season?.serie.name.replace(' ', '')}/S${episode.season.number}.E${episode.number}-${episode.season.serie.name.replace(' ', '')}.mp4`
@@ -97,8 +97,18 @@ const VideoContainer = styled.div`
 
   @media (max-width: 1000px){
     flex-direction: column;
-    .comments{
+    padding: 90px 10px;
+    align-items: center;
+    .video{
       width: 100%;
+      video{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .comments{
+      width: 90%;
+      height: 100%;
     }
   }
 `
