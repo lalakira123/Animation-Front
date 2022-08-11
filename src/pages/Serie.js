@@ -8,9 +8,11 @@ import Header from "../components/Header";
 import SimpleAccordion from "../components/Accordion";
 import { UserContext } from "../contexts/UserContext";
 import requestSerieApi from "../services/api/series";
+import requestFavoriteApi from "../services/api/favorites";
 
 export default function Serie(){
   const [ serie, setSerie ] = useState({name: '', imageUrl: '', description: '', season:[]});
+  const [ checkFavorite, setCheckFavorite ] = useState(false);
 
   const { idSerie } = useParams();
 
@@ -18,7 +20,7 @@ export default function Serie(){
   const config = {
     headers: {Authorization: `Bearer ${user.token}`}
   }
-
+  
   useEffect(() => {
     const promise = requestSerieApi.getById(idSerie, config);
     promise.then((response) => {
@@ -30,25 +32,53 @@ export default function Serie(){
     })
   }, []);
 
+  useEffect(() => {
+    const promise = requestFavoriteApi.checkSerieFavorite(idSerie, config);
+    promise.then((response) => {
+      const { data } = response;
+      setCheckFavorite(data);
+    });
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }, [checkFavorite]);
+
+  function handleFavorite(){
+    const promise = requestFavoriteApi.favoriteSerie(idSerie, config);
+    promise.then((response) => {
+      console.log(response.data);
+      setCheckFavorite(0);
+    });
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }
+
   return(
     <>
       <Header />
       {
         serie ? 
         <SerieContainer>
-        <div className='serie'>
-          <img src={serie.imageUrl}/>
-          <div>
-            <h3>{serie.name}</h3>
-            <p>{serie.description}</p>
-            <p><FavoriteBorderIcon />Favoritar</p>
+          <div className='serie'>
+            <img src={serie.imageUrl}/>
+            <div>
+              <h3>{serie.name}</h3>
+              <p>{serie.description}</p>
+              {
+                checkFavorite ? 
+                <p className='favorite' onClick={handleFavorite}><FavoriteIcon color='primary' />Favoritado</p>
+                :
+                <p className='favorite' onClick={handleFavorite}><FavoriteBorderIcon />Favoritar</p>
+              }
+            </div>
           </div>
-        </div>
-        <div className='season'>
-          <SimpleAccordion seasons={serie.season} serieName={serie.name}/>
-        </div>
-      </SerieContainer>
-        :<></> 
+          <div className='season'>
+            <SimpleAccordion seasons={serie.season} serieName={serie.name}/>
+          </div>
+        </SerieContainer>
+        :
+        <></> 
       }
     </>
   );
@@ -72,6 +102,9 @@ const SerieContainer = styled.div`
     }
     div{
       padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       h3{
         font-size: 35px;
         margin-bottom: 20px;
@@ -82,6 +115,9 @@ const SerieContainer = styled.div`
         justify-content: flex-start;
         align-items: center;
         margin-bottom: 20px;
+      }
+      .favorite{
+        cursor: pointer;
       }
     }
   }
@@ -102,6 +138,7 @@ const SerieContainer = styled.div`
       }
       div{
         padding: 5px;
+        align-items: center;
         h3{
           font-size: 25px;
         }
