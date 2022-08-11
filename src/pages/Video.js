@@ -3,14 +3,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 import Header from "../components/Header";
 import { UserContext } from '../contexts/UserContext';
 import requestEpisodeApi from '../services/api/episode';
+import requestCommentApi from '../services/api/comment';
 
 export default function Video(){
   const [ episode, setEpisode ] = useState({});
   const [ nextAndPrevious, setNextAndPrevious ] = useState({});
+  const [ comment, setComment ] = useState();
+  const [ loading, setLoading ] = useState(false);
 
   const { idVideo } = useParams();
   const navigate = useNavigate();
@@ -19,7 +24,7 @@ export default function Video(){
   const config = {
     headers: {Authorization: `Bearer ${user.token}`}
   }
-
+  
   useEffect(() => {
     const promise = requestEpisodeApi.getEpisodeById(idVideo, config);
     promise.then((response) => {
@@ -42,6 +47,19 @@ export default function Video(){
     })
   }, [episode]);
 
+  function handlePostComment(){
+    setLoading(true);
+    const promise = requestCommentApi.createComment({comment: comment, episodeId: episode.id}, config);
+    promise.then((response) => {
+      console.log(response.data);
+      setLoading(false);
+    });
+    promise.catch((e) => {
+      setLoading(false);
+      console.log(e);
+    })
+  }
+  
   return(
     <>
       <Header />
@@ -89,7 +107,19 @@ export default function Video(){
           <p className='visualization'>{episode.views} Visualizações</p>
         </div>
         <div className='comments'>
-
+          <div className='input'>
+            <Stack direction="row" spacing={2}>
+              <Avatar alt="user" src={user.imageUrl} />
+            </Stack>
+            <input 
+              placeholder='Comente algo!' 
+              onChange={(e) => setComment(e.target.value)}
+              type='text'
+              required
+              disabled={loading}
+            />
+            <button onClick={handlePostComment}>Enviar</button>
+          </div>
         </div>
       </VideoContainer>
       :
@@ -148,10 +178,24 @@ const VideoContainer = styled.div`
     }
   }
   .comments{
-    background-color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     width: 45%;
     height: 100%;
+    .input{
+      position: absolute;
+      bottom: 0;
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      background-color: #000000;
+      input{
+        width: 90%;
+        border-radius: 20px;
+      }
+    }
   }
 
   @media (max-width: 1000px){
