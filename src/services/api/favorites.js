@@ -10,9 +10,14 @@ function favoriteSerie(id, config){
   return axios.post(`${url}/favorite/serie/${id}`, {}, config);
 }
 
+function listFavorites(config){
+  return axios.get(`${url}/favorite`, config);
+}
+
 const requestFavoriteApi = {
   checkSerieFavorite,
-  favoriteSerie
+  favoriteSerie,
+  listFavorites
 }
 
 export default requestFavoriteApi;

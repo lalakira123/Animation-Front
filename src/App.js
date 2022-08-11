@@ -11,6 +11,7 @@ import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Serie from './pages/Serie';
 import Video from './pages/Video';
+import Favorite from './pages/Favorite';
 
 function App() {
   return (
@@ -32,6 +33,11 @@ function App() {
           <Route path='/video/:idVideo' element={
             <PrivateRoute>
               <Video />
+            </PrivateRoute>
+          } />
+          <Route path='/favorites' element={
+            <PrivateRoute>
+              <Favorite />
             </PrivateRoute>
           } />
         </Routes>
