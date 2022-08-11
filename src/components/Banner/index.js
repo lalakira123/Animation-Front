@@ -35,8 +35,8 @@ export default function Banner() {
         <BasicButtons serieId={banner.id}/>
         </div>
       </div>
-      <div className='image'>
-        <img src={banner.bannerUrl} alt={banner.name}/>
+      <div className='image' banner={banner.bannerUrl}>
+        
       </div>
     </Container>
   );
@@ -75,11 +75,9 @@ const Container = styled.div`
     height: 100%;
     padding: 10px;
     padding-right: 70px;
-    img{
-      height: 100%;
-      width: 100%; 
-      border-radius: 5px;
-    }
+    background-color: blue;
+    background: ${(props) => `linear-gradient(rgba(0, 0, 0, 1), rgba(34, 113, 179, 0.4), rgba(0, 0, 0, 1)), url(${props.banner})`};
+    background-size: cover;
   }
 
   @media (max-width: 1000px){

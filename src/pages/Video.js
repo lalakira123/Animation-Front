@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import Header from "../components/Header";
 import { UserContext } from '../contexts/UserContext';
@@ -8,8 +10,10 @@ import requestEpisodeApi from '../services/api/episode';
 
 export default function Video(){
   const [ episode, setEpisode ] = useState({});
+  const [ nextAndPrevious, setNextAndPrevious ] = useState({});
 
   const { idVideo } = useParams();
+  const navigate = useNavigate();
 
   const { user } = useContext(UserContext);
   const config = {
@@ -20,13 +24,23 @@ export default function Video(){
     const promise = requestEpisodeApi.getEpisodeById(idVideo, config);
     promise.then((response) => {
       const { data } = response;
-      console.log(data);
       setEpisode(data);
     });
     promise.catch((e) => {
       console.log(e);
     })
-  }, []);
+  }, [idVideo]);
+
+  useEffect(() => {
+    const promise = requestEpisodeApi.getPreviousAndNextEpisode(idVideo, config);
+    promise.then((response) => {
+      const { data } = response;
+      setNextAndPrevious(data);
+    });
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }, [episode]);
 
   return(
     <>
@@ -39,7 +53,32 @@ export default function Video(){
             <h3>{episode.season.serie.name}</h3>
             <p>Temporada {episode.season?.number}: Episódio {episode.number} - {episode.name}</p>
           </div>
-          <video width="100%" height="100%" controls controlsList="nodownload">
+          {
+            Object.values(nextAndPrevious).length > 0 ?
+              <div className='next-and-previous'>
+                {
+                  nextAndPrevious.previous > 0 ? 
+                    <div className='previous' onClick={() => navigate(`/video/${nextAndPrevious.previous}`)}>
+                      <ArrowBackIosNewIcon />
+                      <p>Anterior</p>
+                    </div>
+                  :
+                  <p> </p>
+                }
+                {
+                  nextAndPrevious.next > 0 ?
+                    <div className='next' onClick={() => navigate(`/video/${nextAndPrevious.next}`)}>
+                      <p>Próximo</p>
+                      <ArrowForwardIosIcon />
+                    </div>
+                  :
+                  <p> </p>
+                }
+              </div>
+              :
+              <></>
+          }
+          <video key={episode.id} width="100%" height="80%" controls controlsList="nodownload">
             <source 
               src={
                 `https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${episode.season?.serie.name.replace(' ', '')}/S${episode.season.number}.E${episode.number}-${episode.season.serie.name.replace(' ', '')}.mp4`
@@ -63,7 +102,7 @@ export default function Video(){
 
 const VideoContainer = styled.div`
   display: flex;
-  padding: 120px 100px 80px 100px;
+  padding: 120px 100px 40px 100px;
   color: #ffffff;
   width: 100vw;
   height: 100vh;
@@ -77,7 +116,7 @@ const VideoContainer = styled.div`
     justify-content: space-between;
     width: 55%;
     height: 100%;
-    padding: 10px 35px;
+    padding: 0px 35px 10px 35px;
     .title{
       h3{
         font-size: 30px;
@@ -85,6 +124,22 @@ const VideoContainer = styled.div`
       }
       p{
         font-size: 15px;
+      }
+    }
+    .next-and-previous{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      .next{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .previous{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
       }
     }
   }
