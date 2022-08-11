@@ -10,12 +10,14 @@ import Header from "../components/Header";
 import { UserContext } from '../contexts/UserContext';
 import requestEpisodeApi from '../services/api/episode';
 import requestCommentApi from '../services/api/comment';
+import CardComment from '../components/Comments';
 
 export default function Video(){
   const [ episode, setEpisode ] = useState({});
   const [ nextAndPrevious, setNextAndPrevious ] = useState({});
   const [ comment, setComment ] = useState();
   const [ loading, setLoading ] = useState(false);
+  const [ listComments, setListComments ] = useState([]);
 
   const { idVideo } = useParams();
   const navigate = useNavigate();
@@ -46,6 +48,17 @@ export default function Video(){
       console.log(e);
     })
   }, [episode]);
+console.log(listComments)
+  useEffect(() => {
+    const promise = requestCommentApi.getComments(episode.id, config);
+    promise.then((response) => {
+      const { data } = response;
+      setListComments(data);
+    });
+    promise.catch((e) => {
+      console.log(e);
+    })
+  }, [episode, comment]);
 
   function handlePostComment(){
     setLoading(true);
@@ -53,6 +66,7 @@ export default function Video(){
     promise.then((response) => {
       console.log(response.data);
       setLoading(false);
+      setComment('');
     });
     promise.catch((e) => {
       setLoading(false);
@@ -107,6 +121,21 @@ export default function Video(){
           <p className='visualization'>{episode.views} Visualizações</p>
         </div>
         <div className='comments'>
+          {
+            listComments.length > 0 ? 
+            <div className='comment-user'> 
+              {
+                listComments.map((item) => {
+                  const { id, comment, user } = item;
+                  return(
+                    <CardComment id={id} comment={comment} user={user}/>
+                  );
+                })
+              }
+            </div>
+            :
+            <p>Ainda não há comentários</p>
+          }
           <div className='input'>
             <Stack direction="row" spacing={2}>
               <Avatar alt="user" src={user.imageUrl} />
@@ -114,6 +143,7 @@ export default function Video(){
             <input 
               placeholder='Comente algo!' 
               onChange={(e) => setComment(e.target.value)}
+              value={comment}
               type='text'
               required
               disabled={loading}
@@ -125,7 +155,6 @@ export default function Video(){
       :
       <></>
       }
-      
     </>
   );
 }
@@ -178,11 +207,21 @@ const VideoContainer = styled.div`
     }
   }
   .comments{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     position: relative;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 10px;
     width: 45%;
     height: 100%;
+    .comment-user{
+      overflow-y: scroll;
+      margin-bottom: 80px;
+      width: 100%;
+      height: 100%;
+    }
     .input{
       position: absolute;
       bottom: 0;
@@ -194,6 +233,12 @@ const VideoContainer = styled.div`
       input{
         width: 90%;
         border-radius: 20px;
+      }
+      button{
+        border-radius: 20px;
+        background-color: #0D80D8;
+        color: #ffffff;
+        font-weight: 700;
       }
     }
   }
