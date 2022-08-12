@@ -18,6 +18,7 @@ export default function Video(){
   const [ comment, setComment ] = useState();
   const [ loading, setLoading ] = useState(false);
   const [ listComments, setListComments ] = useState([]);
+  const [ update, setUpdate ] = useState(0);
 
   const { idVideo } = useParams();
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function Video(){
       console.log(e);
     })
   }, [episode]);
-console.log(listComments)
+
   useEffect(() => {
     const promise = requestCommentApi.getComments(episode.id, config);
     promise.then((response) => {
@@ -58,7 +59,7 @@ console.log(listComments)
     promise.catch((e) => {
       console.log(e);
     })
-  }, [episode, comment]);
+  }, [episode, comment, update]);
 
   function handlePostComment(){
     setLoading(true);
@@ -128,7 +129,7 @@ console.log(listComments)
                 listComments.map((item) => {
                   const { id, comment, user } = item;
                   return(
-                    <CardComment id={id} comment={comment} user={user}/>
+                    <CardComment id={id} comment={comment} userInfo={user} update={update} setUpdate={setUpdate}/>
                   );
                 })
               }
