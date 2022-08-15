@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import VideoThumbnail from 'react-video-thumbnail';
 
 export default function SimpleAccordion({seasons, serieName}) {
-  const unitSerieName = serieName?.replace(' ', '');
+  const unitSerieName = serieName?.replaceAll(' ', '');
  
   const navigate = useNavigate();
   

@@ -114,7 +114,7 @@ export default function Video(){
           <video key={episode.id} width="100%" height="80%" controls controlsList="nodownload">
             <source 
               src={
-                `https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${episode.season?.serie.name.replace(' ', '')}/S${episode.season.number}.E${episode.number}-${episode.season.serie.name.replace(' ', '')}.mp4`
+                `https://adfmqwzqmoevvtvgkqzg.supabase.co/storage/v1/object/public/video/${episode.season?.serie.name.replaceAll(' ', '')}/S${episode.season.number}.E${episode.number}-${episode.season.serie.name.replaceAll(' ', '')}.mp4`
               }
               type="video/mp4" 
             />
